@@ -56,18 +56,13 @@ jobs:
     steps:
       - run: exit 0
 
-  deploy:
+  push:
     needs: required-checks
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
-
-  reports:
-    needs: required-checks
-    uses: ./.github/workflows/reports.yml
+    uses: ./.github/workflows/docker-hub.yml
     secrets: inherit
 
   all-checks:
-    needs: [required-checks, deploy, reports]
+    needs: [required-checks, push]
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
